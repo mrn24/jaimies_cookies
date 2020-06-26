@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product, CartService } from './../../services/cart.service';
+import { ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cart-modal',
@@ -7,9 +9,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartModalPage implements OnInit {
 
-  constructor() { }
+  cart: Product[] = [];
+
+  constructor(private cartService: CartService, private modalCtrl: ModalController,
+    private AlertCtrl: AlertController) { }
 
   ngOnInit() {
+    this.cart = this.cartService.getCart();
   }
 
+  decreaseCartItem(product) {
+    this.cartService.decreaseProduct(product);
+  }
+
+  increaseCartItem(product){
+    this.cartService.addProduct(product);
+  }
+
+  removeCartItem(product){
+    this.cartService.removeProduct(product);
+  }
+
+  getTotal() {
+    return this.cart.reduce((i, j) => i + j.price * j.amount, 0);
+  }
+
+  close() {
+    this.modalCtrl.dismiss();
+  }
+
+  async checkout() {
+    //perform paypal or stripe checkout process
+    let alert = await this.AlertCtrl.create({
+      header: 'Thanks for your order!',
+      message: 'We will deliver your food as soon as possible',
+      buttons: ['OK']
+    });
+    alert.present().then(() => {
+      this.modalCtrl.dismiss();
+    });
+  }
 }

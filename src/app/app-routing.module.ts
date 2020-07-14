@@ -8,12 +8,16 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'title',
     pathMatch: 'full'
   },
   {
     path: 'cart-modal',
     loadChildren: () => import('./pages/cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
+  },
+  {
+    path: 'title',
+    loadChildren: () => import('./title/title.module').then( m => m.TitlePageModule)
   },
 ];
 

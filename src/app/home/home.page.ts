@@ -3,6 +3,7 @@ import {CartService} from './../services/cart.service';
 import { ModalController } from '@ionic/angular';
 import { CartModalPage } from '../pages/cart-modal/cart-modal.page';
 import { BehaviorSubject } from 'rxjs';
+import { SQLite, SQLiteObject } from 'ionic-native';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  private database: SQLiteObject;
   cart = [];
   products = [];
   cartItemCount: BehaviorSubject<number>;

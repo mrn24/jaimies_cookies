@@ -1,5 +1,7 @@
 {
   "name": "cookiesByJaimie",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
